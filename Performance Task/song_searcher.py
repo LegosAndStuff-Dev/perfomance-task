@@ -15,7 +15,7 @@ yt = YTMusic()
 #urllib.request.urlretrieve("https://lh3.googleusercontent.com/ZiDnpS4sPXfL33gnC4j3QcYMcY8aaCzFOQ4z7GCY0zWaysDHwRrol9TnKO6_YdpCS0r2P3ojMZs5bANXyw=w120-h120-l90-rj", "Performance Task\local-filename.jpg")
 
 #Possibly
-def broswer(id: str, type: str):
+def browser(id: str, type: str):
     if type == "song":
         webbrowser.open(f"https://www.youtube.com/watch?v={id}")
 
@@ -53,12 +53,21 @@ class App(customtkinter.CTk):
         self.searchButton = customtkinter.CTkButton(self.mainFrame, text="Search", command=self.search_song)
         self.searchButton.grid(row=1, column=2, padx=10, pady=2)
 
+        #Column 0 (actually column 1)
         self.placeholder2 = customtkinter.CTkLabel(self.mainFrame, text="")
         self.placeholder2.grid(row=2, column=0)
 
         self.imageLabel = customtkinter.CTkLabel(self.mainFrame, text="")
         self.imageLabel.grid(row=3, column=0)
 
+        self.placeholder3 = customtkinter.CTkLabel(self.mainFrame, text="")
+        self.placeholder3.grid(row=4, column=0)
+
+        self.songButton = customtkinter.CTkButton(self.mainFrame, text="Song", state="disabled", command=self.web("song"))
+        self.songButton.grid(row=5, column=0, pady=5)
+
+        self.channelButton = customtkinter.CTkButton(self.mainFrame, text="Channel", state="disabled", command=self.web("channel"))
+        self.channelButton.grid(row=6, column=0, pady=5)
 
 
     #Button Event when the searchButton is presssed
@@ -68,16 +77,18 @@ class App(customtkinter.CTk):
 
         combinded = f"{song} by {artist}"
 
-        song_search = yt.search(combinded, "songs")
-        album_search = yt.search(combinded, "albums")
-        artist_search = yt.search(artist, "artists")
+        self.song_search = yt.search(combinded, "songs")
+        self.album_search = yt.search(combinded, "albums")
+        self.artist_search = yt.search(artist, "artists")
 
 
-        print(album_search[0])
-        print(song_search[0])
+        print(self.song_search[0])
+        print(self.album_search[0])
+        print(self.artist_search[0])
+        print("--------------------------------------------------------------------------------------------")
 
-        for i in range(len(album_search[0]["thumbnails"])):
-            if (album_search[0]["thumbnails"][i]["width"]) == 120:
+        for i in range(len(self.album_search[0]["thumbnails"])):
+            if (self.album_search[0]["thumbnails"][i]["width"]) == 120:
                 imageID = i
 
         if imageID == 0:
@@ -85,18 +96,39 @@ class App(customtkinter.CTk):
 
         #School Code
         """
-        urllib.request.urlretrieve(album_search[0]["thumbnails"][imageID]["url"], "Performance Task\local-filename.jpg")
+        urllib.request.urlretrieve(self.album_search[0]["thumbnails"][imageID]["url"], "Performance Task\local-filename.jpg")
         self.image = customtkinter.CTkImage(Image.open("Performance Task\local-filename.jpg"), size=(120, 120))
         self.imageLabel.configure(image=self.image)
         """
         
         #Home Code
-        urllib.request.urlretrieve(album_search[0]["thumbnails"][imageID]["url"], "Performance Task\local-filename.jpg")
-        self.image = customtkinter.CTkImage(Image.open("Performance Task\local-filename.jpg"), size=(120, 120))
+        urllib.request.urlretrieve(self.album_search[0]["thumbnails"][imageID]["url"], "perfomance-task\Performance Task\local-filename.jpg")
+        self.image = customtkinter.CTkImage(Image.open("perfomance-task\Performance Task\local-filename.jpg"), size=(120, 120))
         self.imageLabel.configure(image=self.image)
+        
+        self.songButton.configure(state="active")
+        self.channelButton.configure(state="active")
 
-        broswer(song_search[0]["videoId"], "song")
-        broswer(song_search[0]["artists"][0]["id"], "channel")
+    def web(self, type: str):
+        print("hey")
+        song = self.songEntry.get().lower()
+        artist = self.artistEntry.get().lower()
+
+        combinded = f"{song} by {artist}"
+
+        song_search = yt.search(combinded, "songs")
+
+        if combinded == " by ":
+            pass
+
+        else:
+            if type.lower() == "song":
+                print("hey")
+                browser(song_search[0]["videoId"], "song")
+
+            if type.lower() == "Channel":
+                browser(song_search[0]["artists"][0]["id"], "channel")
+        
 
 
 
