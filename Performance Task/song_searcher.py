@@ -15,7 +15,7 @@ yt = YTMusic()
 #urllib.request.urlretrieve("https://lh3.googleusercontent.com/ZiDnpS4sPXfL33gnC4j3QcYMcY8aaCzFOQ4z7GCY0zWaysDHwRrol9TnKO6_YdpCS0r2P3ojMZs5bANXyw=w120-h120-l90-rj", "Performance Task\local-filename.jpg")
 
 #Possibly
-def browser(id: str, type: str):
+def broswer(id: str, type: str):
     if type == "song":
         webbrowser.open(f"https://www.youtube.com/watch?v={id}")
 
@@ -83,12 +83,20 @@ class App(customtkinter.CTk):
         if imageID == 0:
             imageID = i
 
+        #School Code
+        """
+        urllib.request.urlretrieve(album_search[0]["thumbnails"][imageID]["url"], "Performance Task\local-filename.jpg")
+        self.image = customtkinter.CTkImage(Image.open("Performance Task\local-filename.jpg"), size=(120, 120))
+        self.imageLabel.configure(image=self.image)
+        """
+        
+        #Home Code
         urllib.request.urlretrieve(album_search[0]["thumbnails"][imageID]["url"], "Performance Task\local-filename.jpg")
         self.image = customtkinter.CTkImage(Image.open("Performance Task\local-filename.jpg"), size=(120, 120))
         self.imageLabel.configure(image=self.image)
 
-        browser(song_search[0]["videoId"], "song")
-        browser(song_search[0]["artists"][0]["id"], "channel")
+        broswer(song_search[0]["videoId"], "song")
+        broswer(song_search[0]["artists"][0]["id"], "channel")
 
 
 
