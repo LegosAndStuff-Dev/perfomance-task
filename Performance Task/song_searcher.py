@@ -15,12 +15,14 @@ yt = YTMusic()
 #urllib.request.urlretrieve("https://lh3.googleusercontent.com/ZiDnpS4sPXfL33gnC4j3QcYMcY8aaCzFOQ4z7GCY0zWaysDHwRrol9TnKO6_YdpCS0r2P3ojMZs5bANXyw=w120-h120-l90-rj", "Performance Task\local-filename.jpg")
 
 #Possibly
+
 def browser(id: str, type: str):
     if type == "song":
         webbrowser.open(f"https://www.youtube.com/watch?v={id}")
 
     elif type == "channel":
         webbrowser.open(f"https://www.youtube.com/channel/{id}")
+
 
 class App(customtkinter.CTk):
     def __init__(self):
@@ -54,20 +56,14 @@ class App(customtkinter.CTk):
         self.searchButton.grid(row=1, column=2, padx=10, pady=2)
 
         #Column 0 (actually column 1)
-        self.placeholder2 = customtkinter.CTkLabel(self.mainFrame, text="")
-        self.placeholder2.grid(row=2, column=0)
+        self.placeholder1 = customtkinter.CTkLabel(self.mainFrame, text="")
+        self.placeholder1.grid(row=2, column=0)
 
         self.imageLabel = customtkinter.CTkLabel(self.mainFrame, text="")
         self.imageLabel.grid(row=3, column=0)
 
-        self.placeholder3 = customtkinter.CTkLabel(self.mainFrame, text="")
-        self.placeholder3.grid(row=4, column=0)
-
-        self.songButton = customtkinter.CTkButton(self.mainFrame, text="Song", state="disabled", command=self.web("song"))
-        self.songButton.grid(row=5, column=0, pady=5)
-
-        self.channelButton = customtkinter.CTkButton(self.mainFrame, text="Channel", state="disabled", command=self.web("channel"))
-        self.channelButton.grid(row=6, column=0, pady=5)
+        self.placeholder2 = customtkinter.CTkLabel(self.mainFrame, text="")
+        self.placeholder2.grid(row=4, column=0)
 
 
     #Button Event when the searchButton is presssed
@@ -106,30 +102,19 @@ class App(customtkinter.CTk):
         self.image = customtkinter.CTkImage(Image.open("perfomance-task\Performance Task\local-filename.jpg"), size=(120, 120))
         self.imageLabel.configure(image=self.image)
         
-        self.songButton.configure(state="active")
-        self.channelButton.configure(state="active")
+        self.songButton = customtkinter.CTkButton(self.mainFrame, text="Song", 
+                                                  command=lambda: browser(self.song_search[0]["videoId"], "song")
+                                                  #command=self.test
+                                                  )
+        self.songButton.grid(row=5, column=0, pady=5)
 
-    def web(self, type: str):
-        print("hey")
-        song = self.songEntry.get().lower()
-        artist = self.artistEntry.get().lower()
-
-        combinded = f"{song} by {artist}"
-
-        song_search = yt.search(combinded, "songs")
-
-        if combinded == " by ":
-            pass
-
-        else:
-            if type.lower() == "song":
-                print("hey")
-                browser(song_search[0]["videoId"], "song")
-
-            if type.lower() == "Channel":
-                browser(song_search[0]["artists"][0]["id"], "channel")
+        self.channelButton = customtkinter.CTkButton(self.mainFrame, text="Channel", 
+                                                     command=lambda: browser(self.song_search[0]["artists"][0]["id"], "channel")
+                                                     )
+        self.channelButton.grid(row=6, column=0, pady=5)
         
-
+    def test(self):
+        print("hey")
 
 
 
