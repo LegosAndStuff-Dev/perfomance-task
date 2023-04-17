@@ -76,9 +76,9 @@ class App(customtkinter.CTk):
         print(self.day.get())
         print(self.month.get())
 
-        test = holidayEvent(self.month.get(), int(self.day.get()))
+        mainDay = holidayEvent(self.month.get(), int(self.day.get()))
 
-        print(test)
+        print(mainDay)
 
     def change_appearance_mode_event(self, new_appearance_mode: str):
         customtkinter.set_appearance_mode(new_appearance_mode)
