@@ -1,11 +1,14 @@
+#This inports the customtkinter library and the datetime libray
 import customtkinter
 from datetime import date
 
+#This sets the apperance to dark mode
 customtkinter.set_appearance_mode("Dark")
 
 
 #This is the procedure that finds the fun holiday on that spacific day, it sets the holiday list to hold the list of the fun holidays then it finds the needed holiday at the bottom of the procedure then returns the fun holiday
 def holidayEvent(month: str, day: int):
+    #This finds which month the month variable is equal to and sets the holiday list to all the fun holidays in th month
     if month.lower() == "january":
         holiday = ["Polar Bear Plunge Day", "Buffet Day", "Festival of Sleep Day", "Trivia Day", "Bird Day", "Bean Day", "Old Rock Day", "Earth's Rotation Day", "Word Nerd Day", "Cut Your Energy Costs Day", "Learn Your Name in Morse Code Day", "Marzipan Day", "Make Your Dreams Come True Day", "Organize Your Home Day", "Strawberry Ice Cream Day", "Nothing Day", "Benjamin Franklin Day", "Thesaurus Day", "Popcorn Day", "Penguin Awareness Day", "Squirrel Appreciation Day", "Answer Your Cat's Questions Day", "Handwriting Day", "Compliment Day", "Opposite Day", "Spouse's Day", "Chocolate Cake Day", "Fun at Work Day", "Puzzle Day", "Croissant Day", "Backwards Day"]
     
@@ -22,7 +25,7 @@ def holidayEvent(month: str, day: int):
         holiday = ["Batman Day", "No Pants Day", "Free Comic Book Day", "Star Wars Day", "Space Day", "Herb Day", "Beverage Day", "Lost Sock Memorial Day", "Europe Day", "Clean Up Your Room Day", "Eat What You Want Day", "Limerick Day", "Frog Jumping Day", "Dance Like a Chicken Day", "Chocolate Chip Day", "National School Nurse Day", "Pack Rat Day", "No Dirty Dishes Day", "Pizza Party Day", "Be a Millionaire Day", "Talk Like Yoda Day", "Buy a Musical Instrument Day", "Twilight Zone Day", "Scavenger Hunt Day", "Sing Out Day", "World Lindy Hop Day", "Sun Screen Day", "Hamburger Day", "Put a Pillow on Your Fridge Day", "My Bucket's Got a Hole Day", "Macaroon Day"]
 
     elif month.lower() == "june":
-        holiday = ["Say Something Nice Day", "National Doughnut Day", "Repeat Day", "Hug Your Cat Day", "Leave the Office Early Day", "Drive-In Movie Day", "VCR Day", "Best Friends Day", "Donald Duck Day", "Iced Tea Day", "Corn on the Cob Day", "Red Rose Day", "Sewing Machine Day", "Bourbon Day", "Nature Photography Day", "Bloomsday", "World Juggling Day", "International Picnic Day", "International Panic Day", "Sauntering Day", "International Picnic Day", "Daylight Appreciation Day", "Onion Ring Day", "Take Your Dog to Work Day", "Typewriter Day", "Swim a Lap Day", "Please Take my Children to Work Day", "Chocolate Pudding Day", "Helen Keller Day", "Tau Day", "Camera Day", "Meteor Watch Day"]
+        holiday = ["Say Something Nice Day", "National Doughnut Day", "Repeat Day", "Hug Your Cat Day", "Leave the Office Early Day", "Drive-In Movie Day", "VCR Day", "Best Friends Day", "Donald Duck Day", "Iced Tea Day", "Corn on the Cob Day", "Red Rose Day", "Sewing Machine Day", "Bourbon Day", "Nature Photography Day", "Bloomsday", "World Juggling Day", "International Picnic Day", "International Panic Day", "Sauntering Day", "International Yoga Day", "Daylight Appreciation Day", "Onion Ring Day", "Take Your Dog to Work Day", "Typewriter Day", "Swim a Lap Day", "Please Take my Children to Work Day", "Chocolate Pudding Day", "Helen Keller Day", "Tau Day", "Camera Day", "Meteor Watch Day"]
 
     elif month.lower() == "july":
         holiday = ["International Joke Day", "World UFO Day", "Compliment Your Mirror Day", "Sidewalk Egg Frying Day", "Workaholics Day", "World Kissing Day", "Tell the Truth Day", "Video Games Day", "Sugar Cookie Day", "Teddy Bears' Picnic Day", "Cheer Up the Lonely Day", "Simplicity Day", "Embrace Your Geekness Day", "Pandemonium Day", "Gummi Worm Day", "Ice Cream Day", "Emoji Day", "Caviar Day", "Stick Out Your Tongue Day", "Space Exploration Day", "Junk Food Day", "Pi Approximation Day", "Vanilla Ice Cream Day", "Cousins Day", "Culinarians Day", "Uncle and Aunt Day", "Take your Pants for a Walk Day", "Milk Chocolate Day", "Lasagna Day", "National Cheesecake Day", "Uncommon Musical Instrument Day"]
@@ -42,45 +45,59 @@ def holidayEvent(month: str, day: int):
     elif month.lower() == "december":
         holiday = ["Eat a Red Apple Day", "Fritters Day", "Make a Gift Day", "Wear Brown Shoes Day", "Day of the Ninja", "Put on Your Own Shoes Day", "Letter Writing Day", "Pretend to Be a Time Traveler Day", "Christmas Card Day", "Dewey Decimal System Day", "Noodle Ring Day", "Gingerbread House Day", "Microwave Oven Day", "Monkey Day", "Ugly Sweater Day", "Chocolate Covered Anything Day", "Wright Brothers Day", "Official Lost and Found Day", "Underdog Day", "Sangria Day", "International Dalek Remembrance Day", "Date Nut Bread Day", "Festivus", "Eggnog Day", "Alphabet Day or No 'L' Day", "Thank You Note Day", "No Interruptions Day", "Card Playing Day", "Pepper Pot Day", "Bicarbonate of Soda Day", "Make Up Your Mind Day"]
 
+    #Subs one from the day to get it correct for the index
     day = day - 1
 
+    #It gets the event from the holiday list above
     event = holiday[day]
 
+    #It then retuns the event.
     return event
 
 #if the day is on the edge of a month then it would get the correct day
 def findDay(month: str, day: int):
+    #A list for all the months then the amont of day in each month
     daysMonth = [31, 28, 31, 30, 31, 30, 31, 31, 30, 31, 30, 31]
     monthList = ["january", "february", "march", "april", "may", "june", "july", "august", "september", "october", "november", "december"]
 
+    #Finds the index value of month variable
     indexMonth = monthList.index(month.lower())
 
+    #It then gets the amont of days from the daysMonth variable
     dayMonth = daysMonth[indexMonth]
 
+    #It checks if the day is 0 and month is the first month then it retruns 31 and december
     if day == 0 and month.lower() == monthList[0]:
             return [31, "december"]
-        
+
+    #This checks if the day is 32 and the month is the last month then it sets it day 1 and the month january
     elif day == 32 and month.lower() == monthList[11]:
         return [1, monthList[0]]
 
+    #This would checks if the day givin is more then the number of day in the month then it sets it to 1 and then it gets the next month in the monthList
     elif day > dayMonth:
         return [1, monthList[indexMonth + 1]]
 
+    #This check if the day is zero and if is it gets the amont of days in the last month and sets it to that and gets the name of the last month
     elif day == 0:
         return [daysMonth[indexMonth - 1], monthList[indexMonth - 1]]
-        
+
+    #If nothing else it true then it just returns the same info givin 
     else:
          return [day, month.lower()]
-    
+
+#This just gets the number month givien from a pritned month
 def getMonth(month: str):
+    #A list with every single month pritned
     monthList = ["january", "february", "march", "april", "may", "june", "july", "august", "september", "october", "november", "december"]
 
+    #This finds the value that is equal to month and then gives the index of that value
     indexMonth = monthList.index(month.lower())
 
+    #It adds 1 to the index because the index is always one off
     indexMonth = indexMonth + 1
 
-    print(indexMonth)
-
+    #This just retuns the index.
     return indexMonth
 
 
@@ -91,16 +108,19 @@ class App(customtkinter.CTk):
 
         #sets basic info for the gui
         self.title("Fun Holiday")
-        self.geometry("460x300")
+        self.geometry("460x255")
 
         # Sets the main grid 1 x 1
         self.grid_columnconfigure(0, weight=1)
-        self.grid_rowconfigure(0, weight=1)
+        self.grid_rowconfigure(1, weight=1)
 
         #This makes the frame that all the info is going to be in
         self.home_frame = customtkinter.CTkFrame(self, corner_radius=10)
-        self.home_frame.grid(row=0, column=0, sticky="nsew", padx=10, pady=10)
+        self.home_frame.grid(row=1, column=0, sticky="nsew", padx=10, pady=10)
         self.home_frame.grid_columnconfigure((0, 1, 2), weight=1)
+
+        self.title = customtkinter.CTkLabel(self, text="Fun holiday Search", font=customtkinter.CTkFont(size=20, weight="bold"))
+        self.title.grid(row=0, column=0, pady=5)
 
         #This makes an entry box with the placeholder text "Day"
         self.day = customtkinter.CTkEntry(self.home_frame, placeholder_text="Day", width=120)
@@ -119,57 +139,60 @@ class App(customtkinter.CTk):
         
     #The searh procedure is where 80% of the code happens 
     def search(self):
-        print(self.day.get())
-        print(self.month.get())
-
+        #adds 1 and subs 1 to get the day before and the day after
         day1 = int(self.day.get()) - 1
         day2 = int(self.day.get()) + 1
 
+        #It finds if the day need to be eddied if for example december can't have 32 days it would set it to 1st of january
         info1 = findDay(self.month.get(), day1) #the day before the selected Day
         info2 = findDay(self.month.get(), day2) #the day after the slected day
 
-        print(info1)
-        print(info2)
-
+        #This gets the fun holiday
         holiay1 = holidayEvent(info1[1], info1[0])
         holiay2 = holidayEvent(self.month.get(), int(self.day.get()))
         holiay3 = holidayEvent(info2[1], info2[0])
 
+        #This sets all the needed info into a list
         Day1 = [str(info1[1]).capitalize(), info1[0], holiay1]
         Day2 = [self.month.get(), int(self.day.get()), holiay2]
         Day3 = [str(info2[1]).capitalize(), info2[0], holiay3]
 
-        print(holiay1)
-        print(holiay2)
-        print(holiay3)
-
+        #This sets all the mini list into a master list
         HolidayDay = [Day1, Day2, Day3]
 
-        
-
+        #A forloop that runs through HolidayDay list to get the needed info onto the screen
         for i in range(len(HolidayDay)):
+            #This makes the dayFrame where all the info will be
             self.dayFrame = customtkinter.CTkFrame(self.home_frame, corner_radius=5)
             self.dayFrame.grid(row=2, column=i, sticky="nsew", padx=5)
             self.dayFrame.grid_columnconfigure(0, weight=1)
 
+            #This makes the month label
             monthLabel = customtkinter.CTkLabel(self.dayFrame, text=HolidayDay[i][0])
             monthLabel.grid(row=0, column=0)
 
+            #This is just a placeholder so all the text isn't in one area
             self.placeholder1 = customtkinter.CTkLabel(self.dayFrame, text="")
             self.placeholder1.grid(row=1, column=0)
 
+            #This gets the month number (january = 1) and then it finds the print day (Example: Monday)
             monthNum = getMonth(HolidayDay[i][0])
-
             d = date(2023, monthNum, HolidayDay[i][1])
-
             printDay = d.strftime("%A")
-            print(printDay)
 
+            #This makes a label and puts the number day then it also has the print day in it also
             self.dayLabel = customtkinter.CTkLabel(self.dayFrame, text=f"{HolidayDay[i][1]} ({printDay})")
             self.dayLabel.grid(row=2, column=0)
 
-            print(HolidayDay[i])
+            #This is just a placeholder so all the text isn't in one area
+            self.placeholder1 = customtkinter.CTkLabel(self.dayFrame, text="")
+            self.placeholder1.grid(row=3, column=0)
 
+            #This makes a label and puts the fun holiday as the text. 
+            self.holidayLabel = customtkinter.CTkLabel(self.dayFrame, text=f"{HolidayDay[i][2]}")
+            self.holidayLabel.grid(row=4, column=0)
+
+#This just runs that app from the class function
 if __name__ == "__main__":
     app = App()
     app.mainloop()
