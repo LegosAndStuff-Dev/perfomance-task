@@ -12,4 +12,4 @@ The application would search through a mini database of a bunch of fun random ho
 
 ## License
 
-[MIT](https://choosealicense.com/licenses/mit/)
+Performance Task © 2023 by LegosAndStuff-Dev is licensed under CC BY-NC-SA 4.0 
